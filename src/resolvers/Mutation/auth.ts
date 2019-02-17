@@ -1,6 +1,7 @@
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
+import { confirmEmail } from "../../communications/email";
 import { MutationResolvers } from "../../generated/graphqlgen";
 import {
   checkForPwnedPassword,
@@ -28,8 +29,11 @@ export const auth: Pick<MutationResolvers.Type, "signup" | "login"> = {
       password: hashedPassword
     });
 
+    const token = jwt.sign({ personId: person.id }, process.env.APP_SECRET);
+    confirmEmail(email, token);
+
     return {
-      token: jwt.sign({ personId: person.id }, process.env.APP_SECRET),
+      token,
       person
     };
   },
