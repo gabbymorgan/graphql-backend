@@ -485,7 +485,10 @@ export namespace PersonResolvers {
     id: (parent: Person) => parent.id,
     email: (parent: Person) => parent.email,
     createdAt: (parent: Person) => parent.createdAt,
-    name: (parent: Person) => parent.name
+    name: (parent: Person) => parent.name,
+    confirmationToken: (parent: Person) =>
+      parent.confirmationToken === undefined ? null : parent.confirmationToken,
+    emailConfirmed: (parent: Person) => parent.emailConfirmed
   };
 
   export type IdResolver =
@@ -554,6 +557,40 @@ export namespace PersonResolvers {
           ctx: IContext,
           info: GraphQLResolveInfo
         ) => string | Promise<string>;
+      };
+
+  export type ConfirmationTokenResolver =
+    | ((
+        parent: Person,
+        args: {},
+        ctx: IContext,
+        info: GraphQLResolveInfo
+      ) => string | null | Promise<string | null>)
+    | {
+        fragment: string;
+        resolve: (
+          parent: Person,
+          args: {},
+          ctx: IContext,
+          info: GraphQLResolveInfo
+        ) => string | null | Promise<string | null>;
+      };
+
+  export type EmailConfirmedResolver =
+    | ((
+        parent: Person,
+        args: {},
+        ctx: IContext,
+        info: GraphQLResolveInfo
+      ) => boolean | Promise<boolean>)
+    | {
+        fragment: string;
+        resolve: (
+          parent: Person,
+          args: {},
+          ctx: IContext,
+          info: GraphQLResolveInfo
+        ) => boolean | Promise<boolean>;
       };
 
   export type GroupsResolver =
@@ -640,6 +677,40 @@ export namespace PersonResolvers {
             ctx: IContext,
             info: GraphQLResolveInfo
           ) => string | Promise<string>;
+        };
+
+    confirmationToken:
+      | ((
+          parent: Person,
+          args: {},
+          ctx: IContext,
+          info: GraphQLResolveInfo
+        ) => string | null | Promise<string | null>)
+      | {
+          fragment: string;
+          resolve: (
+            parent: Person,
+            args: {},
+            ctx: IContext,
+            info: GraphQLResolveInfo
+          ) => string | null | Promise<string | null>;
+        };
+
+    emailConfirmed:
+      | ((
+          parent: Person,
+          args: {},
+          ctx: IContext,
+          info: GraphQLResolveInfo
+        ) => boolean | Promise<boolean>)
+      | {
+          fragment: string;
+          resolve: (
+            parent: Person,
+            args: {},
+            ctx: IContext,
+            info: GraphQLResolveInfo
+          ) => boolean | Promise<boolean>;
         };
 
     groups:
@@ -1040,6 +1111,10 @@ export namespace MutationResolvers {
     password: string;
   }
 
+  export interface ArgsConfirmEmail {
+    token?: string | null;
+  }
+
   export interface ArgsUpdatePerson {
     email?: string | null;
     password?: string | null;
@@ -1120,6 +1195,23 @@ export namespace MutationResolvers {
           ctx: IContext,
           info: GraphQLResolveInfo
         ) => AuthPayload | Promise<AuthPayload>;
+      };
+
+  export type ConfirmEmailResolver =
+    | ((
+        parent: undefined,
+        args: ArgsConfirmEmail,
+        ctx: IContext,
+        info: GraphQLResolveInfo
+      ) => Person | Promise<Person>)
+    | {
+        fragment: string;
+        resolve: (
+          parent: undefined,
+          args: ArgsConfirmEmail,
+          ctx: IContext,
+          info: GraphQLResolveInfo
+        ) => Person | Promise<Person>;
       };
 
   export type UpdatePersonResolver =
@@ -1325,6 +1417,23 @@ export namespace MutationResolvers {
             ctx: IContext,
             info: GraphQLResolveInfo
           ) => AuthPayload | Promise<AuthPayload>;
+        };
+
+    confirmEmail:
+      | ((
+          parent: undefined,
+          args: ArgsConfirmEmail,
+          ctx: IContext,
+          info: GraphQLResolveInfo
+        ) => Person | Promise<Person>)
+      | {
+          fragment: string;
+          resolve: (
+            parent: undefined,
+            args: ArgsConfirmEmail,
+            ctx: IContext,
+            info: GraphQLResolveInfo
+          ) => Person | Promise<Person>;
         };
 
     updatePerson:

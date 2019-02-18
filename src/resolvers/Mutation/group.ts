@@ -25,7 +25,8 @@ export const group: Pick<
       create: {
         name: "Wobbly",
         email: "wobbly@wobbly.app",
-        password: "x"
+        password: "x",
+        emailConfirmed: false
       }
     });
     return ctx.prisma.createGroup({

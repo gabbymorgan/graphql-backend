@@ -4,6 +4,8 @@ type Person {
     createdAt: DateTime!
     password: String!
     name: String!
+    confirmationToken: String
+    emailConfirmed: Boolean!
     groups: [Group!]
 }
 

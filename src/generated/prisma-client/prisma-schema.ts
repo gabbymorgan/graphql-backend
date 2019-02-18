@@ -351,6 +351,8 @@ type Person {
   createdAt: DateTime!
   password: String!
   name: String!
+  confirmationToken: String
+  emailConfirmed: Boolean!
   groups(where: GroupWhereInput, orderBy: GroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Group!]
 }
 
@@ -364,6 +366,8 @@ input PersonCreateInput {
   email: String!
   password: String!
   name: String!
+  confirmationToken: String
+  emailConfirmed: Boolean!
   groups: GroupCreateManyWithoutMembersInput
 }
 
@@ -381,6 +385,8 @@ input PersonCreateWithoutGroupsInput {
   email: String!
   password: String!
   name: String!
+  confirmationToken: String
+  emailConfirmed: Boolean!
 }
 
 type PersonEdge {
@@ -399,6 +405,10 @@ enum PersonOrderByInput {
   password_DESC
   name_ASC
   name_DESC
+  confirmationToken_ASC
+  confirmationToken_DESC
+  emailConfirmed_ASC
+  emailConfirmed_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -409,6 +419,8 @@ type PersonPreviousValues {
   createdAt: DateTime!
   password: String!
   name: String!
+  confirmationToken: String
+  emailConfirmed: Boolean!
 }
 
 input PersonScalarWhereInput {
@@ -476,6 +488,22 @@ input PersonScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  confirmationToken: String
+  confirmationToken_not: String
+  confirmationToken_in: [String!]
+  confirmationToken_not_in: [String!]
+  confirmationToken_lt: String
+  confirmationToken_lte: String
+  confirmationToken_gt: String
+  confirmationToken_gte: String
+  confirmationToken_contains: String
+  confirmationToken_not_contains: String
+  confirmationToken_starts_with: String
+  confirmationToken_not_starts_with: String
+  confirmationToken_ends_with: String
+  confirmationToken_not_ends_with: String
+  emailConfirmed: Boolean
+  emailConfirmed_not: Boolean
   AND: [PersonScalarWhereInput!]
   OR: [PersonScalarWhereInput!]
   NOT: [PersonScalarWhereInput!]
@@ -503,6 +531,8 @@ input PersonUpdateDataInput {
   email: String
   password: String
   name: String
+  confirmationToken: String
+  emailConfirmed: Boolean
   groups: GroupUpdateManyWithoutMembersInput
 }
 
@@ -510,6 +540,8 @@ input PersonUpdateInput {
   email: String
   password: String
   name: String
+  confirmationToken: String
+  emailConfirmed: Boolean
   groups: GroupUpdateManyWithoutMembersInput
 }
 
@@ -517,12 +549,16 @@ input PersonUpdateManyDataInput {
   email: String
   password: String
   name: String
+  confirmationToken: String
+  emailConfirmed: Boolean
 }
 
 input PersonUpdateManyMutationInput {
   email: String
   password: String
   name: String
+  confirmationToken: String
+  emailConfirmed: Boolean
 }
 
 input PersonUpdateManyWithoutGroupsInput {
@@ -553,6 +589,8 @@ input PersonUpdateWithoutGroupsDataInput {
   email: String
   password: String
   name: String
+  confirmationToken: String
+  emailConfirmed: Boolean
 }
 
 input PersonUpdateWithWhereUniqueWithoutGroupsInput {
@@ -636,6 +674,22 @@ input PersonWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  confirmationToken: String
+  confirmationToken_not: String
+  confirmationToken_in: [String!]
+  confirmationToken_not_in: [String!]
+  confirmationToken_lt: String
+  confirmationToken_lte: String
+  confirmationToken_gt: String
+  confirmationToken_gte: String
+  confirmationToken_contains: String
+  confirmationToken_not_contains: String
+  confirmationToken_starts_with: String
+  confirmationToken_not_starts_with: String
+  confirmationToken_ends_with: String
+  confirmationToken_not_ends_with: String
+  emailConfirmed: Boolean
+  emailConfirmed_not: Boolean
   groups_every: GroupWhereInput
   groups_some: GroupWhereInput
   groups_none: GroupWhereInput

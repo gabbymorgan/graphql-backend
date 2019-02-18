@@ -227,6 +227,10 @@ export type PersonOrderByInput =
   | "password_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "confirmationToken_ASC"
+  | "confirmationToken_DESC"
+  | "emailConfirmed_ASC"
+  | "emailConfirmed_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
@@ -277,59 +281,6 @@ export type GroupWhereUniqueInput = AtLeastOne<{
 export interface PostUpdateWithoutThreadDataInput {
   author?: PersonUpdateOneRequiredInput;
   content?: String;
-}
-
-export interface ThreadWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  posts_every?: PostWhereInput;
-  posts_some?: PostWhereInput;
-  posts_none?: PostWhereInput;
-  group?: GroupWhereInput;
-  AND?: ThreadWhereInput[] | ThreadWhereInput;
-  OR?: ThreadWhereInput[] | ThreadWhereInput;
-  NOT?: ThreadWhereInput[] | ThreadWhereInput;
-}
-
-export interface PersonUpdateOneRequiredInput {
-  create?: PersonCreateInput;
-  update?: PersonUpdateDataInput;
-  upsert?: PersonUpsertNestedInput;
-  connect?: PersonWhereUniqueInput;
 }
 
 export interface GroupWhereInput {
@@ -394,6 +345,57 @@ export interface GroupWhereInput {
   NOT?: GroupWhereInput[] | GroupWhereInput;
 }
 
+export interface PersonUpdateOneRequiredInput {
+  create?: PersonCreateInput;
+  update?: PersonUpdateDataInput;
+  upsert?: PersonUpsertNestedInput;
+  connect?: PersonWhereUniqueInput;
+}
+
+export interface PostWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  author?: PersonWhereInput;
+  content?: String;
+  content_not?: String;
+  content_in?: String[] | String;
+  content_not_in?: String[] | String;
+  content_lt?: String;
+  content_lte?: String;
+  content_gt?: String;
+  content_gte?: String;
+  content_contains?: String;
+  content_not_contains?: String;
+  content_starts_with?: String;
+  content_not_starts_with?: String;
+  content_ends_with?: String;
+  content_not_ends_with?: String;
+  thread?: ThreadWhereInput;
+  AND?: PostWhereInput[] | PostWhereInput;
+  OR?: PostWhereInput[] | PostWhereInput;
+  NOT?: PostWhereInput[] | PostWhereInput;
+}
+
 export interface GroupUpdateInput {
   name?: String;
   description?: String;
@@ -405,6 +407,8 @@ export interface PersonUpdateInput {
   email?: String;
   password?: String;
   name?: String;
+  confirmationToken?: String;
+  emailConfirmed?: Boolean;
   groups?: GroupUpdateManyWithoutMembersInput;
 }
 
@@ -430,6 +434,8 @@ export interface PersonUpdateDataInput {
   email?: String;
   password?: String;
   name?: String;
+  confirmationToken?: String;
+  emailConfirmed?: Boolean;
   groups?: GroupUpdateManyWithoutMembersInput;
 }
 
@@ -438,32 +444,34 @@ export interface PersonUpdateWithWhereUniqueWithoutGroupsInput {
   data: PersonUpdateWithoutGroupsDataInput;
 }
 
-export interface PostSubscriptionWhereInput {
+export interface ThreadSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: PostWhereInput;
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+  node?: ThreadWhereInput;
+  AND?: ThreadSubscriptionWhereInput[] | ThreadSubscriptionWhereInput;
+  OR?: ThreadSubscriptionWhereInput[] | ThreadSubscriptionWhereInput;
+  NOT?: ThreadSubscriptionWhereInput[] | ThreadSubscriptionWhereInput;
 }
 
 export interface PersonUpdateWithoutGroupsDataInput {
   email?: String;
   password?: String;
   name?: String;
+  confirmationToken?: String;
+  emailConfirmed?: Boolean;
 }
 
-export interface GroupSubscriptionWhereInput {
+export interface PersonSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: GroupWhereInput;
-  AND?: GroupSubscriptionWhereInput[] | GroupSubscriptionWhereInput;
-  OR?: GroupSubscriptionWhereInput[] | GroupSubscriptionWhereInput;
-  NOT?: GroupSubscriptionWhereInput[] | GroupSubscriptionWhereInput;
+  node?: PersonWhereInput;
+  AND?: PersonSubscriptionWhereInput[] | PersonSubscriptionWhereInput;
+  OR?: PersonSubscriptionWhereInput[] | PersonSubscriptionWhereInput;
+  NOT?: PersonSubscriptionWhereInput[] | PersonSubscriptionWhereInput;
 }
 
 export interface PersonUpsertWithWhereUniqueWithoutGroupsInput {
@@ -472,10 +480,8 @@ export interface PersonUpsertWithWhereUniqueWithoutGroupsInput {
   create: PersonCreateWithoutGroupsInput;
 }
 
-export interface ThreadUpdateInput {
+export interface ThreadUpdateManyMutationInput {
   title?: String;
-  posts?: PostUpdateManyWithoutThreadInput;
-  group?: GroupUpdateOneRequiredWithoutThreadsInput;
 }
 
 export interface PersonScalarWhereInput {
@@ -543,13 +549,31 @@ export interface PersonScalarWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  confirmationToken?: String;
+  confirmationToken_not?: String;
+  confirmationToken_in?: String[] | String;
+  confirmationToken_not_in?: String[] | String;
+  confirmationToken_lt?: String;
+  confirmationToken_lte?: String;
+  confirmationToken_gt?: String;
+  confirmationToken_gte?: String;
+  confirmationToken_contains?: String;
+  confirmationToken_not_contains?: String;
+  confirmationToken_starts_with?: String;
+  confirmationToken_not_starts_with?: String;
+  confirmationToken_ends_with?: String;
+  confirmationToken_not_ends_with?: String;
+  emailConfirmed?: Boolean;
+  emailConfirmed_not?: Boolean;
   AND?: PersonScalarWhereInput[] | PersonScalarWhereInput;
   OR?: PersonScalarWhereInput[] | PersonScalarWhereInput;
   NOT?: PersonScalarWhereInput[] | PersonScalarWhereInput;
 }
 
-export interface PostUpdateManyMutationInput {
-  content?: String;
+export interface ThreadCreateInput {
+  title: String;
+  posts?: PostCreateManyWithoutThreadInput;
+  group: GroupCreateOneWithoutThreadsInput;
 }
 
 export interface PersonUpdateManyWithWhereNestedInput {
@@ -566,12 +590,13 @@ export interface PersonUpdateManyDataInput {
   email?: String;
   password?: String;
   name?: String;
+  confirmationToken?: String;
+  emailConfirmed?: Boolean;
 }
 
-export interface GroupUpdateWithoutThreadsDataInput {
-  name?: String;
-  description?: String;
-  members?: PersonUpdateManyWithoutGroupsInput;
+export interface GroupUpsertWithoutThreadsInput {
+  update: GroupUpdateWithoutThreadsDataInput;
+  create: GroupCreateWithoutThreadsInput;
 }
 
 export interface ThreadUpdateManyWithoutGroupInput {
@@ -601,16 +626,14 @@ export interface ThreadUpdateWithWhereUniqueWithoutGroupInput {
   data: ThreadUpdateWithoutGroupDataInput;
 }
 
-export interface ThreadUpdateOneRequiredWithoutPostsInput {
-  create?: ThreadCreateWithoutPostsInput;
-  update?: ThreadUpdateWithoutPostsDataInput;
-  upsert?: ThreadUpsertWithoutPostsInput;
-  connect?: ThreadWhereUniqueInput;
+export interface ThreadUpdateWithoutPostsDataInput {
+  title?: String;
+  group?: GroupUpdateOneRequiredWithoutThreadsInput;
 }
 
-export interface ThreadCreateOneWithoutPostsInput {
-  create?: ThreadCreateWithoutPostsInput;
-  connect?: ThreadWhereUniqueInput;
+export interface ThreadCreateWithoutPostsInput {
+  title: String;
+  group: GroupCreateOneWithoutThreadsInput;
 }
 
 export type ThreadWhereUniqueInput = AtLeastOne<{
@@ -635,9 +658,10 @@ export interface PostUpdateManyWithoutThreadInput {
     | PostUpdateManyWithWhereNestedInput;
 }
 
-export interface GroupCreateOneWithoutThreadsInput {
-  create?: GroupCreateWithoutThreadsInput;
-  connect?: GroupWhereUniqueInput;
+export interface GroupCreateWithoutThreadsInput {
+  name: String;
+  description?: String;
+  members?: PersonCreateManyWithoutGroupsInput;
 }
 
 export interface PostUpdateWithWhereUniqueWithoutThreadInput {
@@ -650,7 +674,7 @@ export interface PersonCreateManyWithoutGroupsInput {
   connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput;
 }
 
-export interface PostWhereInput {
+export interface ThreadWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -673,30 +697,42 @@ export interface PostWhereInput {
   createdAt_lte?: DateTimeInput;
   createdAt_gt?: DateTimeInput;
   createdAt_gte?: DateTimeInput;
-  author?: PersonWhereInput;
-  content?: String;
-  content_not?: String;
-  content_in?: String[] | String;
-  content_not_in?: String[] | String;
-  content_lt?: String;
-  content_lte?: String;
-  content_gt?: String;
-  content_gte?: String;
-  content_contains?: String;
-  content_not_contains?: String;
-  content_starts_with?: String;
-  content_not_starts_with?: String;
-  content_ends_with?: String;
-  content_not_ends_with?: String;
-  thread?: ThreadWhereInput;
-  AND?: PostWhereInput[] | PostWhereInput;
-  OR?: PostWhereInput[] | PostWhereInput;
-  NOT?: PostWhereInput[] | PostWhereInput;
+  title?: String;
+  title_not?: String;
+  title_in?: String[] | String;
+  title_not_in?: String[] | String;
+  title_lt?: String;
+  title_lte?: String;
+  title_gt?: String;
+  title_gte?: String;
+  title_contains?: String;
+  title_not_contains?: String;
+  title_starts_with?: String;
+  title_not_starts_with?: String;
+  title_ends_with?: String;
+  title_not_ends_with?: String;
+  posts_every?: PostWhereInput;
+  posts_some?: PostWhereInput;
+  posts_none?: PostWhereInput;
+  group?: GroupWhereInput;
+  AND?: ThreadWhereInput[] | ThreadWhereInput;
+  OR?: ThreadWhereInput[] | ThreadWhereInput;
+  NOT?: ThreadWhereInput[] | ThreadWhereInput;
 }
 
 export interface ThreadCreateManyWithoutGroupInput {
   create?: ThreadCreateWithoutGroupInput[] | ThreadCreateWithoutGroupInput;
   connect?: ThreadWhereUniqueInput[] | ThreadWhereUniqueInput;
+}
+
+export interface ThreadCreateOneWithoutPostsInput {
+  create?: ThreadCreateWithoutPostsInput;
+  connect?: ThreadWhereUniqueInput;
+}
+
+export interface PostCreateManyWithoutThreadInput {
+  create?: PostCreateWithoutThreadInput[] | PostCreateWithoutThreadInput;
+  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput;
 }
 
 export interface PostCreateInput {
@@ -705,9 +741,37 @@ export interface PostCreateInput {
   thread: ThreadCreateOneWithoutPostsInput;
 }
 
-export interface PostCreateManyWithoutThreadInput {
-  create?: PostCreateWithoutThreadInput[] | PostCreateWithoutThreadInput;
-  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput;
+export interface PersonCreateOneInput {
+  create?: PersonCreateInput;
+  connect?: PersonWhereUniqueInput;
+}
+
+export interface GroupUpdateManyWithoutMembersInput {
+  create?: GroupCreateWithoutMembersInput[] | GroupCreateWithoutMembersInput;
+  delete?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
+  connect?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
+  set?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
+  disconnect?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
+  update?:
+    | GroupUpdateWithWhereUniqueWithoutMembersInput[]
+    | GroupUpdateWithWhereUniqueWithoutMembersInput;
+  upsert?:
+    | GroupUpsertWithWhereUniqueWithoutMembersInput[]
+    | GroupUpsertWithWhereUniqueWithoutMembersInput;
+  deleteMany?: GroupScalarWhereInput[] | GroupScalarWhereInput;
+  updateMany?:
+    | GroupUpdateManyWithWhereNestedInput[]
+    | GroupUpdateManyWithWhereNestedInput;
+}
+
+export interface GroupCreateManyWithoutMembersInput {
+  create?: GroupCreateWithoutMembersInput[] | GroupCreateWithoutMembersInput;
+  connect?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
+}
+
+export interface GroupUpdateWithWhereUniqueWithoutMembersInput {
+  where: GroupWhereUniqueInput;
+  data: GroupUpdateWithoutMembersDataInput;
 }
 
 export interface PersonWhereInput {
@@ -775,6 +839,22 @@ export interface PersonWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  confirmationToken?: String;
+  confirmationToken_not?: String;
+  confirmationToken_in?: String[] | String;
+  confirmationToken_not_in?: String[] | String;
+  confirmationToken_lt?: String;
+  confirmationToken_lte?: String;
+  confirmationToken_gt?: String;
+  confirmationToken_gte?: String;
+  confirmationToken_contains?: String;
+  confirmationToken_not_contains?: String;
+  confirmationToken_starts_with?: String;
+  confirmationToken_not_starts_with?: String;
+  confirmationToken_ends_with?: String;
+  confirmationToken_not_ends_with?: String;
+  emailConfirmed?: Boolean;
+  emailConfirmed_not?: Boolean;
   groups_every?: GroupWhereInput;
   groups_some?: GroupWhereInput;
   groups_none?: GroupWhereInput;
@@ -783,58 +863,21 @@ export interface PersonWhereInput {
   NOT?: PersonWhereInput[] | PersonWhereInput;
 }
 
-export interface PersonCreateOneInput {
-  create?: PersonCreateInput;
-  connect?: PersonWhereUniqueInput;
-}
-
-export interface GroupUpdateManyWithoutMembersInput {
-  create?: GroupCreateWithoutMembersInput[] | GroupCreateWithoutMembersInput;
-  delete?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
-  connect?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
-  set?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
-  disconnect?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
-  update?:
-    | GroupUpdateWithWhereUniqueWithoutMembersInput[]
-    | GroupUpdateWithWhereUniqueWithoutMembersInput;
-  upsert?:
-    | GroupUpsertWithWhereUniqueWithoutMembersInput[]
-    | GroupUpsertWithWhereUniqueWithoutMembersInput;
-  deleteMany?: GroupScalarWhereInput[] | GroupScalarWhereInput;
-  updateMany?:
-    | GroupUpdateManyWithWhereNestedInput[]
-    | GroupUpdateManyWithWhereNestedInput;
-}
-
-export interface GroupCreateManyWithoutMembersInput {
-  create?: GroupCreateWithoutMembersInput[] | GroupCreateWithoutMembersInput;
-  connect?: GroupWhereUniqueInput[] | GroupWhereUniqueInput;
-}
-
-export interface GroupUpdateWithWhereUniqueWithoutMembersInput {
-  where: GroupWhereUniqueInput;
-  data: GroupUpdateWithoutMembersDataInput;
-}
-
-export interface ThreadSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ThreadWhereInput;
-  AND?: ThreadSubscriptionWhereInput[] | ThreadSubscriptionWhereInput;
-  OR?: ThreadSubscriptionWhereInput[] | ThreadSubscriptionWhereInput;
-  NOT?: ThreadSubscriptionWhereInput[] | ThreadSubscriptionWhereInput;
-}
-
 export interface GroupUpdateWithoutMembersDataInput {
   name?: String;
   description?: String;
   threads?: ThreadUpdateManyWithoutGroupInput;
 }
 
-export interface ThreadUpdateManyMutationInput {
-  title?: String;
+export interface GroupSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: GroupWhereInput;
+  AND?: GroupSubscriptionWhereInput[] | GroupSubscriptionWhereInput;
+  OR?: GroupSubscriptionWhereInput[] | GroupSubscriptionWhereInput;
+  NOT?: GroupSubscriptionWhereInput[] | GroupSubscriptionWhereInput;
 }
 
 export interface GroupUpsertWithWhereUniqueWithoutMembersInput {
@@ -843,9 +886,8 @@ export interface GroupUpsertWithWhereUniqueWithoutMembersInput {
   create: GroupCreateWithoutMembersInput;
 }
 
-export interface ThreadUpsertWithoutPostsInput {
-  update: ThreadUpdateWithoutPostsDataInput;
-  create: ThreadCreateWithoutPostsInput;
+export interface PostUpdateManyMutationInput {
+  content?: String;
 }
 
 export interface GroupScalarWhereInput {
@@ -904,11 +946,10 @@ export interface GroupScalarWhereInput {
   NOT?: GroupScalarWhereInput[] | GroupScalarWhereInput;
 }
 
-export interface GroupUpdateOneRequiredWithoutThreadsInput {
-  create?: GroupCreateWithoutThreadsInput;
-  update?: GroupUpdateWithoutThreadsDataInput;
-  upsert?: GroupUpsertWithoutThreadsInput;
-  connect?: GroupWhereUniqueInput;
+export interface GroupUpdateWithoutThreadsDataInput {
+  name?: String;
+  description?: String;
+  members?: PersonUpdateManyWithoutGroupsInput;
 }
 
 export interface GroupUpdateManyWithWhereNestedInput {
@@ -916,10 +957,11 @@ export interface GroupUpdateManyWithWhereNestedInput {
   data: GroupUpdateManyDataInput;
 }
 
-export interface PostUpdateInput {
-  author?: PersonUpdateOneRequiredInput;
-  content?: String;
-  thread?: ThreadUpdateOneRequiredWithoutPostsInput;
+export interface ThreadUpdateOneRequiredWithoutPostsInput {
+  create?: ThreadCreateWithoutPostsInput;
+  update?: ThreadUpdateWithoutPostsDataInput;
+  upsert?: ThreadUpsertWithoutPostsInput;
+  connect?: ThreadWhereUniqueInput;
 }
 
 export interface GroupUpdateManyDataInput {
@@ -927,9 +969,9 @@ export interface GroupUpdateManyDataInput {
   description?: String;
 }
 
-export interface ThreadCreateWithoutPostsInput {
-  title: String;
-  group: GroupCreateOneWithoutThreadsInput;
+export interface GroupCreateOneWithoutThreadsInput {
+  create?: GroupCreateWithoutThreadsInput;
+  connect?: GroupWhereUniqueInput;
 }
 
 export interface PersonUpsertNestedInput {
@@ -941,6 +983,8 @@ export interface PersonCreateWithoutGroupsInput {
   email: String;
   password: String;
   name: String;
+  confirmationToken?: String;
+  emailConfirmed: Boolean;
 }
 
 export interface PostUpsertWithWhereUniqueWithoutThreadInput {
@@ -1007,19 +1051,21 @@ export interface PostUpdateManyWithWhereNestedInput {
   data: PostUpdateManyDataInput;
 }
 
-export interface ThreadCreateInput {
-  title: String;
-  posts?: PostCreateManyWithoutThreadInput;
-  group: GroupCreateOneWithoutThreadsInput;
+export interface ThreadUpdateInput {
+  title?: String;
+  posts?: PostUpdateManyWithoutThreadInput;
+  group?: GroupUpdateOneRequiredWithoutThreadsInput;
 }
 
 export interface PostUpdateManyDataInput {
   content?: String;
 }
 
-export interface ThreadUpdateWithoutPostsDataInput {
-  title?: String;
-  group?: GroupUpdateOneRequiredWithoutThreadsInput;
+export interface GroupUpdateOneRequiredWithoutThreadsInput {
+  create?: GroupCreateWithoutThreadsInput;
+  update?: GroupUpdateWithoutThreadsDataInput;
+  upsert?: GroupUpsertWithoutThreadsInput;
+  connect?: GroupWhereUniqueInput;
 }
 
 export interface ThreadUpsertWithWhereUniqueWithoutGroupInput {
@@ -1081,6 +1127,8 @@ export interface PersonCreateInput {
   email: String;
   password: String;
   name: String;
+  confirmationToken?: String;
+  emailConfirmed: Boolean;
   groups?: GroupCreateManyWithoutMembersInput;
 }
 
@@ -1088,6 +1136,8 @@ export interface PersonUpdateManyMutationInput {
   email?: String;
   password?: String;
   name?: String;
+  confirmationToken?: String;
+  emailConfirmed?: Boolean;
 }
 
 export interface GroupUpdateManyMutationInput {
@@ -1104,15 +1154,15 @@ export interface ThreadUpdateManyWithWhereNestedInput {
   data: ThreadUpdateManyDataInput;
 }
 
-export interface PersonSubscriptionWhereInput {
+export interface PostSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: PersonWhereInput;
-  AND?: PersonSubscriptionWhereInput[] | PersonSubscriptionWhereInput;
-  OR?: PersonSubscriptionWhereInput[] | PersonSubscriptionWhereInput;
-  NOT?: PersonSubscriptionWhereInput[] | PersonSubscriptionWhereInput;
+  node?: PostWhereInput;
+  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
 }
 
 export interface ThreadCreateWithoutGroupInput {
@@ -1120,15 +1170,15 @@ export interface ThreadCreateWithoutGroupInput {
   posts?: PostCreateManyWithoutThreadInput;
 }
 
-export interface GroupCreateWithoutThreadsInput {
-  name: String;
-  description?: String;
-  members?: PersonCreateManyWithoutGroupsInput;
+export interface PostUpdateInput {
+  author?: PersonUpdateOneRequiredInput;
+  content?: String;
+  thread?: ThreadUpdateOneRequiredWithoutPostsInput;
 }
 
-export interface GroupUpsertWithoutThreadsInput {
-  update: GroupUpdateWithoutThreadsDataInput;
-  create: GroupCreateWithoutThreadsInput;
+export interface ThreadUpsertWithoutPostsInput {
+  update: ThreadUpdateWithoutPostsDataInput;
+  create: ThreadCreateWithoutPostsInput;
 }
 
 export interface NodeNode {
@@ -1157,20 +1207,25 @@ export interface ThreadPreviousValuesSubscription
   title: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateGroup {
-  count: Int;
+export interface PersonConnection {
+  pageInfo: PageInfo;
+  edges: PersonEdge[];
 }
 
-export interface AggregateGroupPromise
-  extends Promise<AggregateGroup>,
+export interface PersonConnectionPromise
+  extends Promise<PersonConnection>,
     Fragmentable {
-  count: () => Promise<Int>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PersonEdge>>() => T;
+  aggregate: <T = AggregatePersonPromise>() => T;
 }
 
-export interface AggregateGroupSubscription
-  extends Promise<AsyncIterator<AggregateGroup>>,
+export interface PersonConnectionSubscription
+  extends Promise<AsyncIterator<PersonConnection>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PersonEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePersonSubscription>() => T;
 }
 
 export interface Thread {
@@ -1213,6 +1268,22 @@ export interface ThreadSubscription
   group: <T = GroupSubscription>() => T;
 }
 
+export interface AggregateGroup {
+  count: Int;
+}
+
+export interface AggregateGroupPromise
+  extends Promise<AggregateGroup>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateGroupSubscription
+  extends Promise<AsyncIterator<AggregateGroup>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface GroupEdge {
   node: Group;
   cursor: String;
@@ -1230,50 +1301,6 @@ export interface GroupEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface Person {
-  id: ID_Output;
-  email: String;
-  createdAt: DateTimeOutput;
-  password: String;
-  name: String;
-}
-
-export interface PersonPromise extends Promise<Person>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  password: () => Promise<String>;
-  name: () => Promise<String>;
-  groups: <T = FragmentableArray<Group>>(args?: {
-    where?: GroupWhereInput;
-    orderBy?: GroupOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface PersonSubscription
-  extends Promise<AsyncIterator<Person>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  password: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  groups: <T = Promise<AsyncIterator<GroupSubscription>>>(args?: {
-    where?: GroupWhereInput;
-    orderBy?: GroupOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
 export interface BatchPayload {
   count: Long;
 }
@@ -1288,217 +1315,6 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface PostPreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  content: String;
-}
-
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  content: () => Promise<String>;
-}
-
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  content: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ThreadEdge {
-  node: Thread;
-  cursor: String;
-}
-
-export interface ThreadEdgePromise extends Promise<ThreadEdge>, Fragmentable {
-  node: <T = ThreadPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ThreadEdgeSubscription
-  extends Promise<AsyncIterator<ThreadEdge>>,
-    Fragmentable {
-  node: <T = ThreadSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface GroupConnection {
-  pageInfo: PageInfo;
-  edges: GroupEdge[];
-}
-
-export interface GroupConnectionPromise
-  extends Promise<GroupConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<GroupEdge>>() => T;
-  aggregate: <T = AggregateGroupPromise>() => T;
-}
-
-export interface GroupConnectionSubscription
-  extends Promise<AsyncIterator<GroupConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<GroupEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateGroupSubscription>() => T;
-}
-
-export interface AggregatePost {
-  count: Int;
-}
-
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface Post {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  content: String;
-}
-
-export interface PostPromise extends Promise<Post>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  author: <T = PersonPromise>() => T;
-  content: () => Promise<String>;
-  thread: <T = ThreadPromise>() => T;
-}
-
-export interface PostSubscription
-  extends Promise<AsyncIterator<Post>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  author: <T = PersonSubscription>() => T;
-  content: () => Promise<AsyncIterator<String>>;
-  thread: <T = ThreadSubscription>() => T;
-}
-
-export interface PostConnection {
-  pageInfo: PageInfo;
-  edges: PostEdge[];
-}
-
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
-}
-
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
-}
-
-export interface PostSubscriptionPayload {
-  mutation: MutationType;
-  node: Post;
-  updatedFields: String[];
-  previousValues: PostPreviousValues;
-}
-
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
-}
-
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
-}
-
-export interface PersonEdge {
-  node: Person;
-  cursor: String;
-}
-
-export interface PersonEdgePromise extends Promise<PersonEdge>, Fragmentable {
-  node: <T = PersonPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface PersonEdgeSubscription
-  extends Promise<AsyncIterator<PersonEdge>>,
-    Fragmentable {
-  node: <T = PersonSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface GroupSubscriptionPayload {
-  mutation: MutationType;
-  node: Group;
-  updatedFields: String[];
-  previousValues: GroupPreviousValues;
-}
-
-export interface GroupSubscriptionPayloadPromise
-  extends Promise<GroupSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = GroupPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = GroupPreviousValuesPromise>() => T;
-}
-
-export interface GroupSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<GroupSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = GroupSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = GroupPreviousValuesSubscription>() => T;
 }
 
 export interface ThreadSubscriptionPayload {
@@ -1526,6 +1342,66 @@ export interface ThreadSubscriptionPayloadSubscription
   previousValues: <T = ThreadPreviousValuesSubscription>() => T;
 }
 
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateThread {
+  count: Int;
+}
+
+export interface AggregateThreadPromise
+  extends Promise<AggregateThread>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateThreadSubscription
+  extends Promise<AsyncIterator<AggregateThread>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface GroupConnection {
+  pageInfo: PageInfo;
+  edges: GroupEdge[];
+}
+
+export interface GroupConnectionPromise
+  extends Promise<GroupConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<GroupEdge>>() => T;
+  aggregate: <T = AggregateGroupPromise>() => T;
+}
+
+export interface GroupConnectionSubscription
+  extends Promise<AsyncIterator<GroupConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<GroupEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateGroupSubscription>() => T;
+}
+
 export interface ThreadConnection {
   pageInfo: PageInfo;
   edges: ThreadEdge[];
@@ -1547,12 +1423,188 @@ export interface ThreadConnectionSubscription
   aggregate: <T = AggregateThreadSubscription>() => T;
 }
 
+export interface Post {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  content: String;
+}
+
+export interface PostPromise extends Promise<Post>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  author: <T = PersonPromise>() => T;
+  content: () => Promise<String>;
+  thread: <T = ThreadPromise>() => T;
+}
+
+export interface PostSubscription
+  extends Promise<AsyncIterator<Post>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  author: <T = PersonSubscription>() => T;
+  content: () => Promise<AsyncIterator<String>>;
+  thread: <T = ThreadSubscription>() => T;
+}
+
+export interface PostEdge {
+  node: Post;
+  cursor: String;
+}
+
+export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
+  node: <T = PostPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PostEdgeSubscription
+  extends Promise<AsyncIterator<PostEdge>>,
+    Fragmentable {
+  node: <T = PostSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PostSubscriptionPayload {
+  mutation: MutationType;
+  node: Post;
+  updatedFields: String[];
+  previousValues: PostPreviousValues;
+}
+
+export interface PostSubscriptionPayloadPromise
+  extends Promise<PostSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PostPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PostPreviousValuesPromise>() => T;
+}
+
+export interface PostSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PostSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PostPreviousValuesSubscription>() => T;
+}
+
+export interface AggregatePerson {
+  count: Int;
+}
+
+export interface AggregatePersonPromise
+  extends Promise<AggregatePerson>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePersonSubscription
+  extends Promise<AsyncIterator<AggregatePerson>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface GroupSubscriptionPayload {
+  mutation: MutationType;
+  node: Group;
+  updatedFields: String[];
+  previousValues: GroupPreviousValues;
+}
+
+export interface GroupSubscriptionPayloadPromise
+  extends Promise<GroupSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = GroupPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = GroupPreviousValuesPromise>() => T;
+}
+
+export interface GroupSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<GroupSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = GroupSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = GroupPreviousValuesSubscription>() => T;
+}
+
+export interface Person {
+  id: ID_Output;
+  email: String;
+  createdAt: DateTimeOutput;
+  password: String;
+  name: String;
+  confirmationToken?: String;
+  emailConfirmed: Boolean;
+}
+
+export interface PersonPromise extends Promise<Person>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  password: () => Promise<String>;
+  name: () => Promise<String>;
+  confirmationToken: () => Promise<String>;
+  emailConfirmed: () => Promise<Boolean>;
+  groups: <T = FragmentableArray<Group>>(args?: {
+    where?: GroupWhereInput;
+    orderBy?: GroupOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface PersonSubscription
+  extends Promise<AsyncIterator<Person>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  password: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  confirmationToken: () => Promise<AsyncIterator<String>>;
+  emailConfirmed: () => Promise<AsyncIterator<Boolean>>;
+  groups: <T = Promise<AsyncIterator<GroupSubscription>>>(args?: {
+    where?: GroupWhereInput;
+    orderBy?: GroupOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ThreadEdge {
+  node: Thread;
+  cursor: String;
+}
+
+export interface ThreadEdgePromise extends Promise<ThreadEdge>, Fragmentable {
+  node: <T = ThreadPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ThreadEdgeSubscription
+  extends Promise<AsyncIterator<ThreadEdge>>,
+    Fragmentable {
+  node: <T = ThreadSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
 export interface PersonPreviousValues {
   id: ID_Output;
   email: String;
   createdAt: DateTimeOutput;
   password: String;
   name: String;
+  confirmationToken?: String;
+  emailConfirmed: Boolean;
 }
 
 export interface PersonPreviousValuesPromise
@@ -1563,6 +1615,8 @@ export interface PersonPreviousValuesPromise
   createdAt: () => Promise<DateTimeOutput>;
   password: () => Promise<String>;
   name: () => Promise<String>;
+  confirmationToken: () => Promise<String>;
+  emailConfirmed: () => Promise<Boolean>;
 }
 
 export interface PersonPreviousValuesSubscription
@@ -1573,6 +1627,8 @@ export interface PersonPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   password: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  confirmationToken: () => Promise<AsyncIterator<String>>;
+  emailConfirmed: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface PersonSubscriptionPayload {
@@ -1684,87 +1740,93 @@ export interface GroupPreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
 }
 
-export interface PostEdge {
-  node: Post;
+export interface AggregatePost {
+  count: Int;
+}
+
+export interface AggregatePostPromise
+  extends Promise<AggregatePost>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePostSubscription
+  extends Promise<AsyncIterator<AggregatePost>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PostPreviousValues {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  content: String;
+}
+
+export interface PostPreviousValuesPromise
+  extends Promise<PostPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  content: () => Promise<String>;
+}
+
+export interface PostPreviousValuesSubscription
+  extends Promise<AsyncIterator<PostPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  content: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PersonEdge {
+  node: Person;
   cursor: String;
 }
 
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
+export interface PersonEdgePromise extends Promise<PersonEdge>, Fragmentable {
+  node: <T = PersonPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
+export interface PersonEdgeSubscription
+  extends Promise<AsyncIterator<PersonEdge>>,
     Fragmentable {
-  node: <T = PostSubscription>() => T;
+  node: <T = PersonSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateThread {
-  count: Int;
-}
-
-export interface AggregateThreadPromise
-  extends Promise<AggregateThread>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateThreadSubscription
-  extends Promise<AsyncIterator<AggregateThread>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface PersonConnection {
+export interface PostConnection {
   pageInfo: PageInfo;
-  edges: PersonEdge[];
+  edges: PostEdge[];
 }
 
-export interface PersonConnectionPromise
-  extends Promise<PersonConnection>,
+export interface PostConnectionPromise
+  extends Promise<PostConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PersonEdge>>() => T;
-  aggregate: <T = AggregatePersonPromise>() => T;
+  edges: <T = FragmentableArray<PostEdge>>() => T;
+  aggregate: <T = AggregatePostPromise>() => T;
 }
 
-export interface PersonConnectionSubscription
-  extends Promise<AsyncIterator<PersonConnection>>,
+export interface PostConnectionSubscription
+  extends Promise<AsyncIterator<PostConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PersonEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePersonSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePostSubscription>() => T;
 }
-
-export interface AggregatePerson {
-  count: Int;
-}
-
-export interface AggregatePersonPromise
-  extends Promise<AggregatePerson>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregatePersonSubscription
-  extends Promise<AsyncIterator<AggregatePerson>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
-export type Long = string;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
+
+export type Long = string;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /*
 DateTime scalar input type, allowing Date

@@ -1,7 +1,7 @@
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
-import { confirmEmail } from "../../communications/email";
+import { sendConfirmationEmail } from "../../communications/email";
 import { MutationResolvers } from "../../generated/graphqlgen";
 import {
   checkForPwnedPassword,
@@ -10,9 +10,12 @@ import {
   validatePersonFields
 } from "../../utils";
 
-export const auth: Pick<MutationResolvers.Type, "signup" | "login"> = {
+export const auth: Pick<
+  MutationResolvers.Type,
+  "signup" | "login" | "confirmEmail"
+> = {
   signup: async (parent, { email, name, password }, ctx) => {
-    if (!process.env.APP_SECRET) {
+    if (!process.env.APP_SECRET || !process.env.EMAIL_SECRET) {
       throw new Error("Server authentication error");
     }
 
@@ -23,14 +26,17 @@ export const auth: Pick<MutationResolvers.Type, "signup" | "login"> = {
     }
 
     const hashedPassword = await getPasswordHash(password);
+    const confirmationToken = jwt.sign({ email }, process.env.EMAIL_SECRET);
     const person = await ctx.prisma.createPerson({
+      emailConfirmed: false,
+      confirmationToken,
       email,
       name,
       password: hashedPassword
     });
 
     const token = jwt.sign({ personId: person.id }, process.env.APP_SECRET);
-    confirmEmail(email, token);
+    sendConfirmationEmail(email, confirmationToken);
 
     return {
       token,
@@ -57,5 +63,31 @@ export const auth: Pick<MutationResolvers.Type, "signup" | "login"> = {
       token: jwt.sign({ personId: person.id }, process.env.APP_SECRET),
       person
     };
+  },
+
+  confirmEmail: async (parent, { token }, ctx) => {
+    if (!process.env.EMAIL_SECRET) {
+      throw new Error("Server authentication error");
+    }
+
+    if (!token) {
+      throw new Error("Unauthorized.");
+    }
+
+    const { email } = jwt.verify(token, process.env.EMAIL_SECRET) as {
+      email: string;
+    };
+
+    return ctx.prisma.updatePerson({
+      where: {
+        email
+      },
+      data: {
+        email: undefined,
+        password: undefined,
+        name: undefined,
+        emailConfirmed: true
+      }
+    });
   }
 };

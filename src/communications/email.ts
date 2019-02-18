@@ -15,11 +15,11 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-export const confirmEmail = (email: string, token: string) => {
+export const sendConfirmationEmail = (email: string, token: string) => {
   const mailOptions = {
     to: email,
     subject: "Wobbly App - Email Confirmation",
-    text: `${appUrl}:${port}/confirm?${token}`
+    html: `<p>Hey <a href=${appUrl}:${port}?query=mutation{confirmEmail(token:"${token}"){emailConfirmed}}>click here.</a></p>`
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
