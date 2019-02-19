@@ -132,3 +132,13 @@ export function validatePersonFields(
     }
   });
 }
+
+export function getCode(digits: number) {
+  let code = "";
+  let counter = 0;
+  while (counter < digits) {
+    counter += 1;
+    code += Math.floor(Math.random() * 10).toString();
+  }
+  return code;
+}

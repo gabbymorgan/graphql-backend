@@ -5,7 +5,9 @@ import { sendConfirmationEmail } from "../../communications/email";
 import { MutationResolvers } from "../../generated/graphqlgen";
 import {
   checkForPwnedPassword,
+  getCode,
   getPasswordHash,
+  getPersonId,
   InvalidLoginError,
   validatePersonFields
 } from "../../utils";
@@ -26,17 +28,17 @@ export const auth: Pick<
     }
 
     const hashedPassword = await getPasswordHash(password);
-    const confirmationToken = jwt.sign({ email }, process.env.EMAIL_SECRET);
+    const confirmationCode = getCode(6);
     const person = await ctx.prisma.createPerson({
       emailConfirmed: false,
-      confirmationToken,
+      confirmationCode,
       email,
       name,
       password: hashedPassword
     });
 
     const token = jwt.sign({ personId: person.id }, process.env.APP_SECRET);
-    sendConfirmationEmail(email, confirmationToken);
+    sendConfirmationEmail(email, confirmationCode);
 
     return {
       token,
@@ -65,22 +67,20 @@ export const auth: Pick<
     };
   },
 
-  confirmEmail: async (parent, { token }, ctx) => {
-    if (!process.env.EMAIL_SECRET) {
-      throw new Error("Server authentication error");
+  confirmEmail: async (parent, { confirmationCode }, ctx) => {
+    if (!confirmationCode) {
+      throw new Error("No code.");
     }
+    const personId = getPersonId(ctx);
+    const currentInfo = await ctx.prisma.person({ id: personId });
 
-    if (!token) {
-      throw new Error("Unauthorized.");
+    if (confirmationCode !== currentInfo.confirmationCode) {
+      throw new Error("Wrong code.");
     }
-
-    const { email } = jwt.verify(token, process.env.EMAIL_SECRET) as {
-      email: string;
-    };
 
     return ctx.prisma.updatePerson({
       where: {
-        email
+        id: personId
       },
       data: {
         email: undefined,

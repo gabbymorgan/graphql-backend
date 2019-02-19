@@ -1,4 +1,4 @@
-# Wobbly backend [![Build Status](https://travis-ci.com/Wobbly-App/graphql-backend.svg?branch=develop)](https://travis-ci.com/Wobbly-App/graphql-backend) [![codecov](https://codecov.io/gh/Wobbly-App/graphql-backend/branch/develop/graph/badge.svg)](https://codecov.io/gh/Wobbly-App/graphql-backend)
+# Wobbly backend [![Build Status](https://travis-ci.com/Wobbly-App/graphql-backend.svg?branch=develop)](https://travis-ci.com/Wobbly-App/graphql-backend) [![codecov](https://codecov.io/gh/Wobbly-App/graphql-backend/branch/develop/graph/badge.svg)](https://codecov.io/gh/Wobbly-App/graphql-backend) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Wobbly-App/graphql-backend)](https://dependabot.com)
 
 The GraphQL backend server for [Wobbly](https://wobbly.app), written in TypeScript and based on graphql-yoga.
 
@@ -39,7 +39,9 @@ The Prisma server and our backend server can live on different machines, or the 
   - `PRISMA_MANAGEMENT_API_SECRET`
   - `DB_USER` and `DB_PASSWORD` are the credentials to connect to the Postgres database.
   - `APP_SECRET` is the secret we use to sign user [JWTs](https://en.wikipedia.org/wiki/JSON_Web_Token).
+- `yarn codegen` generates a) the typed Prisma client and b) types for the front-facing schema
 - `docker-compose up -d` starts the Prisma server.
+- `yarn prisma deploy` deploys the Prisma datamodel to the Prisma server
 - `yarn dev` runs the backend server locally.
 
 ## Development workflows
