@@ -32,7 +32,6 @@ type Person {
   createdAt: DateTime!
   name: String!
   email: String!
-  confirmationCode: String
   emailConfirmed: Boolean!
   groups: [Group!]
 }
