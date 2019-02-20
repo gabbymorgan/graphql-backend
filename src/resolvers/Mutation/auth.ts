@@ -17,7 +17,7 @@ export const auth: Pick<
   "signup" | "login" | "confirmEmail"
 > = {
   signup: async (parent, { email, name, password }, ctx) => {
-    if (!process.env.APP_SECRET || !process.env.EMAIL_SECRET) {
+    if (!process.env.APP_SECRET) {
       throw new Error("Server authentication error");
     }
 
@@ -83,9 +83,6 @@ export const auth: Pick<
         id: personId
       },
       data: {
-        email: undefined,
-        password: undefined,
-        name: undefined,
         emailConfirmed: true
       }
     });
