@@ -133,12 +133,17 @@ export function validatePersonFields(
   });
 }
 
-export function getCode(digits: number) {
-  let code = "";
+export const getCode = (digits: number) => {
+  let result = "";
   let counter = 0;
-  while (counter < digits) {
+  while (counter < 6) {
+    const buffer = crypto.randomBytes(8);
+    const hex = buffer.toString("hex");
+    const integer = parseInt(hex, 16);
+    const random = (integer / 0xffffffffffffffff).toString().split("");
+    const digit = random[random.length - 1];
+    result += digit;
     counter += 1;
-    code += Math.floor(Math.random() * 10).toString();
   }
-  return code;
-}
+  return result;
+};
